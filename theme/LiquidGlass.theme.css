@@ -1,0 +1,320 @@
+/**
+ * @name Liquid Glass
+ * @author Baselhesham
+ * @description Frosted liquid-glass Discord theme: floating glass panels, heavy blur, soft glow and smooth hover animations. Pair it with the AlbumGlass plugin to make it follow your Spotify album art.
+ * @version 1.0.0
+ * @source https://github.com/Baselhesham/Liquid-Glass
+ */
+
+/* Layout & spacing engine: midnight by refact0r (MIT) — https://github.com/refact0r/midnight-discord */
+@import url('https://refact0r.github.io/midnight-discord/build/midnight.css');
+
+/* ============================================================
+   1) MIDNIGHT LAYOUT SETTINGS (spacing copied from midnight)
+   ============================================================ */
+body {
+  --font: 'figtree';                 /* '' = default Discord font */
+  --code-font: '';
+  font-weight: 400;
+
+  /* sizes — midnight defaults */
+  --gap: 12px;                       /* spacing between panels */
+  --divider-thickness: 4px;
+  --border-thickness: 1px;
+
+  /* animations */
+  --animations: on;
+  --list-item-transition: 0.2s ease;
+  --dms-icon-svg-transition: 0.4s ease;
+  --border-hover-transition: 0.2s ease;
+
+  /* top bar */
+  --top-bar-height: var(--gap);
+  --top-bar-button-position: titlebar;
+  --top-bar-title-position: off;
+  --subtle-top-bar-title: off;
+
+  /* window controls */
+  --custom-window-controls: on;
+  --window-control-size: 14px;
+
+  /* DMs button */
+  --custom-dms-icon: custom;
+  --dms-icon-svg-url: url('https://refact0r.github.io/midnight-discord/assets/Font_Awesome_5_solid_moon.svg');
+  --dms-icon-svg-size: 90%;
+  --dms-icon-color-before: var(--icon-subtle);
+  --dms-icon-color-after: var(--white);
+  --custom-dms-background: off;
+  --dms-background-image-url: url('');
+  --dms-background-image-size: cover;
+  --dms-background-color: linear-gradient(70deg, var(--blue-2), var(--purple-2), var(--red-2));
+
+  /* wallpaper: set to on + paste a GitHub/Imgur image URL to use your own picture */
+  --background-image: off;
+  --background-image-url: url('');
+
+  /* glass */
+  --transparency-tweaks: on;
+  --remove-bg-layer: off;
+  --panel-blur: on;
+  --blur-amount: 40px;               /* frosted blur strength */
+  --bg-floating: hsla(232, 30%, 8%, 0.88); /* popouts, menus, search dropdown */
+
+  /* chatbar */
+  --custom-chatbar: separated;       /* floating liquid chat bar */
+  --chatbar-height: 56px;
+
+  --small-user-panel: on;
+}
+
+/* ============================================================
+   2) COLORS — dark smoked glass
+   ============================================================ */
+:root {
+  --colors: on;
+
+  --text-0: var(--bg-4);
+  --text-1: hsl(225, 45%, 96%);
+  --text-2: hsl(225, 30%, 78%);
+  --text-3: hsl(225, 20%, 68%);
+  --text-4: hsl(225, 15%, 48%);
+  --text-5: hsl(225, 15%, 32%);
+
+  /* translucent backgrounds = the glass */
+  --bg-1: hsla(230, 25%, 26%, 0.55);
+  --bg-2: hsla(230, 25%, 18%, 0.50);
+  --bg-3: hsla(232, 30%, 7%, 0.30);   /* gaps between panels — shows wallpaper */
+  --bg-4: hsla(232, 30%, 9%, 0.55);   /* main panel glass */
+  --hover: hsla(225, 40%, 70%, 0.08);
+  --active: hsla(225, 40%, 70%, 0.14);
+  --active-2: hsla(225, 40%, 70%, 0.20);
+  --message-hover: hsla(225, 40%, 80%, 0.04);
+
+  --accent-1: var(--blue-1);
+  --accent-2: var(--blue-2);
+  --accent-3: var(--blue-3);
+  --accent-4: var(--blue-4);
+  --accent-5: var(--blue-5);
+  --accent-new: var(--accent-2);
+  --mention: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 90%) 40%, transparent);
+  --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 95%) 40%, transparent);
+  --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent);
+  --reply-hover: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 95%) 40%, transparent);
+
+  --online: var(--green-2);
+  --dnd: var(--red-2);
+  --idle: var(--yellow-2);
+  --streaming: var(--purple-2);
+  --offline: var(--text-4);
+
+  /* glass edges */
+  --border-light: hsla(0, 0%, 100%, 0.06);
+  --border: hsla(0, 0%, 100%, 0.10);
+  --border-hover: hsla(0, 0%, 100%, 0.20);
+  --button-border: hsla(0, 0%, 100%, 0.12);
+
+  --red-1: oklch(75% 0.12 0);    --red-2: oklch(70% 0.12 0);    --red-3: oklch(65% 0.12 0);    --red-4: oklch(60% 0.12 0);    --red-5: oklch(55% 0.12 0);
+  --green-1: oklch(75% 0.11 170);--green-2: oklch(70% 0.11 170);--green-3: oklch(65% 0.11 170);--green-4: oklch(60% 0.11 170);--green-5: oklch(55% 0.11 160);
+  --blue-1: oklch(78% 0.1 250);  --blue-2: oklch(72% 0.1 250);  --blue-3: oklch(66% 0.1 250);  --blue-4: oklch(60% 0.1 250);  --blue-5: oklch(55% 0.1 250);
+  --yellow-1: oklch(80% 0.11 90);--yellow-2: oklch(75% 0.11 90);--yellow-3: oklch(70% 0.11 90);--yellow-4: oklch(65% 0.11 90);--yellow-5: oklch(60% 0.11 90);
+  --purple-1: oklch(75% 0.11 310);--purple-2: oklch(70% 0.11 310);--purple-3: oklch(65% 0.11 310);--purple-4: oklch(60% 0.11 310);--purple-5: oklch(55% 0.11 310);
+
+  /* liquid glass extras */
+  --lg-gradient:
+    radial-gradient(circle at 15% 20%, rgba(88, 72, 190, 0.55) 0%, transparent 50%),
+    radial-gradient(circle at 85% 15%, rgba(20, 110, 150, 0.45) 0%, transparent 45%),
+    radial-gradient(circle at 70% 85%, rgba(150, 40, 100, 0.40) 0%, transparent 50%),
+    radial-gradient(circle at 20% 90%, rgba(20, 120, 100, 0.35) 0%, transparent 45%),
+    #07080f;
+  --lg-highlight: rgba(255, 255, 255, 0.16);  /* top specular line on glass */
+  --lg-solid: hsla(232, 30%, 7%, 0.90);       /* settings screen / modals */
+  --lg-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --lg-speed: 0.28s;
+  --lg-smooth: cubic-bezier(0.22, 1, 0.36, 1);  /* smooth ease-out, no overshoot */
+  --lg-smooth-speed: 0.45s;                     /* server/channel hover speed */
+}
+
+/* ============================================================
+   3) WALLPAPER (gradient — used when --background-image is off)
+   ============================================================ */
+html, body {
+  background: var(--lg-gradient) fixed !important;
+  background-size: cover !important;
+}
+
+/* ============================================================
+   4) FIXES — opaque glass for overlays so nothing bleeds through
+   ============================================================ */
+
+/* Search dropdown (filters list was overlapping the profile panel) */
+[class*="searchPopout"],
+[class*="searchResultsWrap"],
+[id*="search-popout"],
+[class*="layerContainer_"] [class*="popout"],
+[class*="layerContainer_"] [class*="menu_"][role="menu"],
+[class*="autocomplete_"] {
+  background: var(--bg-floating) !important;
+  backdrop-filter: blur(var(--blur-amount)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(140%);
+  border: 1px solid var(--border) !important;
+  box-shadow: inset 0 1px 0 var(--lg-highlight), 0 18px 50px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 14px !important;
+}
+
+/* Settings screen (chat was visible through it) */
+[class*="layers_"] > [class*="layer_"] ~ [class*="layer_"] {
+  background: var(--lg-solid) !important;
+  backdrop-filter: blur(var(--blur-amount));
+  -webkit-backdrop-filter: blur(var(--blur-amount));
+}
+
+/* Modals */
+[role="dialog"][class*="root_"],
+[class*="modal_"] {
+  background: var(--lg-solid) !important;
+  backdrop-filter: blur(var(--blur-amount));
+  -webkit-backdrop-filter: blur(var(--blur-amount));
+}
+[class*="backdrop_"] { backdrop-filter: blur(6px); }
+
+/* ============================================================
+   5) LIQUID SHEEN on panels (edges only — layout untouched)
+   ============================================================ */
+[class*="sidebar_"]:not([class*="sidebarList"]),
+main[class*="chatContent_"],
+[class*="membersWrap_"],
+[class*="panels_"],
+section[class*="title_"][class*="container_"],
+[class*="channelTextArea_"] [class*="scrollableContainer_"] {
+  box-shadow: inset 0 1px 0 var(--lg-highlight), 0 10px 40px rgba(0, 0, 0, 0.30) !important;
+}
+[class*="channelTextArea_"] [class*="scrollableContainer_"] {
+  transition: transform var(--lg-speed) var(--lg-ease), box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+[class*="channelTextArea_"] [class*="scrollableContainer_"]:focus-within {
+  transform: scale(1.006);
+  box-shadow: inset 0 1px 0 var(--lg-highlight), 0 0 0 3px color-mix(in hsl, var(--accent-2), transparent 80%), 0 10px 40px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* ============================================================
+   6) INTERACTIVE ANIMATIONS
+   ============================================================ */
+
+/* Server icons: smooth zoom + glow
+   (same element that zoomed before, now with a smooth ease that midnight can't override) */
+[class*="guilds_"] [class*="listItem_"] [class*="wrapper_"] {
+  transform-origin: center;
+  transition:
+    transform var(--lg-smooth-speed) var(--lg-smooth),
+    filter var(--lg-smooth-speed) var(--lg-smooth) !important;
+}
+[class*="guilds_"] [class*="listItem_"]:hover [class*="wrapper_"] {
+  transform: scale(1.1) !important;
+  filter: drop-shadow(0 0 10px color-mix(in hsl, var(--accent-2), transparent 65%));
+}
+[class*="guilds_"] [class*="listItem_"]:active [class*="wrapper_"] {
+  transform: scale(0.96) !important;
+}
+
+/* Channels & DMs: smooth glide */
+[class*="containerDefault_"] [class*="link_"],
+[class*="privateChannels_"] [class*="interactive_"] {
+  transform: translateZ(0);
+  will-change: transform;
+  transition:
+    transform var(--lg-smooth-speed) var(--lg-smooth),
+    background-color 0.25s ease,
+    color 0.25s ease !important;
+}
+[class*="containerDefault_"]:hover [class*="link_"],
+[class*="privateChannels_"] [class*="interactive_"]:hover {
+  transform: translateZ(0) translateX(4px);
+}
+[class*="containerDefault_"]:active [class*="link_"] {
+  transform: translateZ(0) translateX(4px) scale(0.985);
+  transition-duration: 0.15s !important;
+}
+
+/* Messages: soft slide */
+li[class*="messageListItem_"] > [class*="message_"] {
+  transition: background 0.2s ease, transform var(--lg-speed) var(--lg-ease) !important;
+}
+li[class*="messageListItem_"] > [class*="message_"]:hover { transform: translateX(2px); }
+
+/* Avatars zoom */
+[class*="message_"] img[class*="avatar_"],
+[class*="member_"] [class*="avatar_"],
+[class*="panels_"] [class*="avatar_"] {
+  transition: transform var(--lg-speed) var(--lg-ease) !important;
+}
+[class*="message_"]:hover img[class*="avatar_"],
+[class*="member_"]:hover [class*="avatar_"],
+[class*="panels_"] [class*="avatar_"]:hover { transform: scale(1.1); }
+
+/* Member rows */
+[class*="member_"] [class*="layout_"] {
+  transition: transform var(--lg-speed) var(--lg-ease), background 0.2s ease !important;
+}
+[class*="member_"]:hover [class*="layout_"] { transform: translateX(-3px); }
+
+/* Reactions pop */
+[class*="reaction_"] { transition: transform var(--lg-speed) var(--lg-ease) !important; }
+[class*="reaction_"]:hover { transform: scale(1.15) translateY(-2px); }
+[class*="reaction_"]:active { transform: scale(0.92); }
+
+/* Images & embeds */
+[class*="imageWrapper_"], [class*="embedFull_"] {
+  transition: transform 0.35s var(--lg-ease), box-shadow 0.3s ease !important;
+}
+[class*="imageWrapper_"]:hover, [class*="embedFull_"]:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Header / toolbar / user panel buttons */
+section[class*="title_"] [class*="iconWrapper_"],
+[class*="toolbar_"] [class*="iconWrapper_"],
+[class*="panels_"] button,
+[class*="channelTextArea_"] [class*="buttons_"] [class*="button_"] {
+  transition: transform var(--lg-speed) var(--lg-ease) !important;
+}
+section[class*="title_"] [class*="iconWrapper_"]:hover,
+[class*="toolbar_"] [class*="iconWrapper_"]:hover,
+[class*="panels_"] button:hover,
+[class*="channelTextArea_"] [class*="buttons_"] [class*="button_"]:hover { transform: scale(1.15); }
+section[class*="title_"] [class*="iconWrapper_"]:active,
+[class*="panels_"] button:active { transform: scale(0.9); }
+
+/* Filled buttons lift */
+[class*="button_"][class*="lookFilled_"] {
+  transition: transform var(--lg-speed) var(--lg-ease), filter 0.2s ease !important;
+}
+[class*="button_"][class*="lookFilled_"]:hover { transform: translateY(-2px) scale(1.03); filter: brightness(1.08); }
+[class*="button_"][class*="lookFilled_"]:active { transform: scale(0.96); }
+
+/* Menu items slide */
+[class*="menu_"] [class*="item_"] { transition: transform 0.2s var(--lg-ease), background 0.15s ease !important; }
+[class*="menu_"] [class*="item_"]:hover,
+[class*="menu_"] [class*="focused_"] { transform: translateX(3px); }
+
+/* Popouts: liquid pop-in */
+@keyframes lg-pop {
+  0%   { opacity: 0; transform: scale(0.92) translateY(6px); filter: blur(4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+[class*="menu_"][role="menu"],
+[class*="userPopoutOuter_"],
+[class*="emojiPicker_"],
+[class*="searchPopout"],
+[class*="autocomplete_"] {
+  animation: lg-pop 0.32s var(--lg-ease) both;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.16) !important; border-radius: 999px; border: none !important; }
+::-webkit-scrollbar-track { background: transparent !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
